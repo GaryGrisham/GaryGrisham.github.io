@@ -63,6 +63,7 @@ d3.json("samples.json").then((data) => {
 // var location = Object.values(data.location);
 // var bbtype = Object.values(data.bbtype);
 // var wfreq = Object.values(wfreq.bbtype);
+// console.log(wfreq)
 
 // // Create an array of music provider labels
 // var labels = Object.keys(data.ID);
@@ -84,15 +85,15 @@ d3.json("samples.json").then((data) => {
 // }
 
 // // On change to the DOM, call getData()
-// d3.selectAll("#selDataset").on("change", getData);
+// d3.selectAll("#selDataset").on("change", ID;
 
-// // Function called by DOM changes
+// // // Function called by DOM changes
 // function getData() {
-// var dropdownMenu = d3.select("#selDataset");
-// // Assign the value of the dropdown menu option to a variable
-// var dataset = dropdownMenu.property("value");
-// // Initialize an empty array for the country's data
-// var data = [];
+//     var dropdownMenu = d3.select("#selDataset");
+// // // Assign the value of the dropdown menu option to a variable
+//     var dataset = dropdownMenu.property("value");
+// // // Initialize an empty array for the country's data
+//     var data = [];
 
 // if (dataset == 'us') {
 //     data = us;
@@ -144,8 +145,7 @@ Plotly.newPlot('bubble', data, layout);
 // }
 // python -m http.server
 
-// Some Notes:
-// 9:20
+
 // 1) Grab a reference to the dropdown select element using D3 select()
 // 2) Create two functions such as function1 for creating demograpgic data and function2 for building charts/plots
 // 3) Use the list of sample names to populate the select options (Create a dropdown menu list)
