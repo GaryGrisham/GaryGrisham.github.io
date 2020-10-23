@@ -115,7 +115,15 @@ d3.json("samples.json").then((data) => {
 
 // init();
 
+var datab = [{
+title: 'OTU ID',
+type: 'bar',
+x: [20, 14, 23],
+y: ['giraffes', 'orangutans', 'monkeys'],
+orientation: 'h'
+}];
 
+Plotly.newPlot('bar1', datab, layout);
 
 var trace1 = {
 x: [1, 2, 3, 4],
@@ -129,7 +137,7 @@ marker: {
 var data = [trace1];
 
 var layout = {
-title: 'Marker Size',
+title: 'OTU ID',
 showlegend: false,
 height: 600,
 width: 600
@@ -169,3 +177,39 @@ Plotly.newPlot('bubble', data, layout);
 // 	-> This time, read metadata key from dataset
 // 		e.g: var samples = data.samples;
 // 	-> Define steps to create the plot/chart
+
+var datag = [
+{
+    type: "indicator",
+    mode: "gauge+number+delta",
+    value: 420,
+    title: { text: "Speed", font: { size: 24 } },
+    delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+    gauge: {
+    axis: { range: [null, 500], tickwidth: 1, tickcolor: "darkblue" },
+    bar: { color: "darkblue" },
+    bgcolor: "white",
+    borderwidth: 2,
+    bordercolor: "gray",
+    steps: [
+        { range: [0, 250], color: "cyan" },
+        { range: [250, 400], color: "royalblue" }
+    ],
+    threshold: {
+        line: { color: "red", width: 4 },
+        thickness: 0.75,
+        value: 490
+    }
+    }
+}
+];
+
+var layout = {
+width: 500,
+height: 400,
+margin: { t: 25, r: 25, l: 25, b: 25 },
+paper_bgcolor: "white",
+font: { color: "darkblue", family: "Arial" }
+};
+
+Plotly.newPlot('gauge', datag, layout);
