@@ -116,11 +116,10 @@ d3.json("samples.json").then((data) => {
 // init();
 
 var datab = [{
-title: 'OTU ID',
 type: 'bar',
 x: [20, 14, 23],
 y: ['giraffes', 'orangutans', 'monkeys'],
-orientation: 'h'
+orientation: 'h',
 }];
 
 Plotly.newPlot('bar1', datab, layout);
@@ -137,10 +136,11 @@ marker: {
 var data = [trace1];
 
 var layout = {
-title: 'OTU ID',
+title: { text: "OTU ID", font: { size: 24 } },
 showlegend: false,
 height: 600,
-width: 600
+width: 600,
+font: { color: "rgb(66, 127, 207)", family: "Arial" }
 };
 
 Plotly.newPlot('bubble', data, layout);
@@ -182,23 +182,30 @@ var datag = [
 {
     type: "indicator",
     mode: "gauge+number+delta",
-    value: 420,
-    title: { text: "Speed", font: { size: 24 } },
-    delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+    value: 6,
+    title: { text: "Belly Button Washing Frequency", font: { size: 24 } },
+    delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
     gauge: {
-    axis: { range: [null, 500], tickwidth: 1, tickcolor: "darkblue" },
+    axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
     bar: { color: "darkblue" },
     bgcolor: "white",
     borderwidth: 2,
     bordercolor: "gray",
     steps: [
-        { range: [0, 250], color: "cyan" },
-        { range: [250, 400], color: "royalblue" }
+        { range: [0, 1], color: "rgb(242,242,242)" },
+        { range: [1, 2], color: "rgb(253,218,236)" },
+        { range: [2, 3], color: "rgb(244,212,242)" },
+        { range: [3, 4], color: "rgb(252,180,229)" },
+        { range: [4, 5], color: "rgb(252,138,195)" },
+        { range: [5, 6], color: "rgb(231,100,250)"},
+        { range: [6, 7], color: "rgb(231,41,138)"},
+        { range: [7, 8], color: "rgb(148,52,110)"},
+        { range: [8, 9], color: "rgb(102,17,0)"}
     ],
     threshold: {
         line: { color: "red", width: 4 },
         thickness: 0.75,
-        value: 490
+        value: 8.75
     }
     }
 }
@@ -209,7 +216,7 @@ width: 500,
 height: 400,
 margin: { t: 25, r: 25, l: 25, b: 25 },
 paper_bgcolor: "white",
-font: { color: "darkblue", family: "Arial" }
+font: { color: "rgb(66, 127, 207)", family: "Arial" }
 };
 
 Plotly.newPlot('gauge', datag, layout);
