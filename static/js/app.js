@@ -1,39 +1,50 @@
 //1 -  Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-
-
 // Use sample_values as the values for the bar chart.
-
-
 // Use otu_ids as the labels for the bar chart.
-
-
 // Use otu_labels as the hovertext for the chart.
+var datab = [{
+    type: 'bar',
+    x: [20, 14, 23, 82, 99, 27, 50, 59, 80, 100],
+    y: ['OTU 1167', 'OTU 2859', 'OTU 482', 'OTU 2264', 'OTU 41', 'OTU 1189', 'OTU 352', 'OTU 189', 'OTU 2318', 'OTU 1977'],
+    orientation: 'h',
+    }];
 
-
+Plotly.newPlot('bar1', datab, layout);
 
 
 // 2 - Create a bubble chart that displays each sample.
-
 // https://plotly.com/javascript/bubble-charts/
-
 // Use otu_ids for the x values.
-
-
 // Use sample_values for the y values.
-
-
 // Use sample_values for the marker size.
-
-
 // Use otu_ids for the marker colors.
-
-
 // Use otu_labels for the text values.
-
+var trace1 = {
+    x: [1, 2, 3, 4],
+    y: [10, 11, 12, 13],
+    mode: 'markers',
+    marker: {
+        size: [40, 60, 80, 100]
+    }
+    };
+    
+    var data = [trace1];
+    
+    var layout = {
+    title: { text: "OTU ID", font: { size: 24 } },
+    showlegend: false,
+    height: 600,
+    width: 600,
+    font: { color: "rgb(66, 127, 207)", family: "Arial" }
+    };
+    
+    Plotly.newPlot('bubble', data, layout);
 
 
 var drop = d3.select('#selDataset');
 drop.append('option').text()
+
+
 // 3 - Display the sample metadata, i.e., an individual's demographic information.
 d3.json("samples.json").then((data) => {
     console.log(data)
@@ -62,7 +73,7 @@ d3.json("samples.json").then((data) => {
 // var age = Object.values(data.age);
 // var location = Object.values(data.location);
 // var bbtype = Object.values(data.bbtype);
-// var wfreq = Object.values(wfreq.bbtype);
+// var wfreq = Object.values(ID.wfreq);
 // console.log(wfreq)
 
 // // Create an array of music provider labels
@@ -114,36 +125,6 @@ d3.json("samples.json").then((data) => {
 // }
 
 // init();
-
-var datab = [{
-type: 'bar',
-x: [20, 14, 23],
-y: ['giraffes', 'orangutans', 'monkeys'],
-orientation: 'h',
-}];
-
-Plotly.newPlot('bar1', datab, layout);
-
-var trace1 = {
-x: [1, 2, 3, 4],
-y: [10, 11, 12, 13],
-mode: 'markers',
-marker: {
-    size: [40, 60, 80, 100]
-}
-};
-
-var data = [trace1];
-
-var layout = {
-title: { text: "OTU ID", font: { size: 24 } },
-showlegend: false,
-height: 600,
-width: 600,
-font: { color: "rgb(66, 127, 207)", family: "Arial" }
-};
-
-Plotly.newPlot('bubble', data, layout);
 // define optionChanged function here to catch the value from you will need two functions to bas the parameter throught those two functions.  
 // Display each key-value pair from the metadata JSON object somewhere on the page.
 
@@ -186,8 +167,8 @@ var datag = [
     title: { text: "Belly Button Washing Frequency", font: { size: 24 } },
     delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
     gauge: {
-    axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
-    bar: { color: "darkblue" },
+    axis: { range: [null, 9], tickwidth: 1, tickcolor: "rgb(66, 127, 207)" },
+    bar: { color: "rgb(66, 127, 207)" },
     bgcolor: "white",
     borderwidth: 2,
     bordercolor: "gray",
