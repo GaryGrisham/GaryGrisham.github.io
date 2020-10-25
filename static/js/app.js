@@ -103,8 +103,6 @@ var bbbar = {
 Plotly.newPlot("bar", bardb, bbbar);
 
 //Log it
-
-
 console.log(bardb);
 console.log(bbbar);
 console.log("\n");
