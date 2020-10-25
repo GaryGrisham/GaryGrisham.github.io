@@ -3,47 +3,6 @@ thedrop = d3.select("#selDataset");
 demoinfo = d3.select("#sample-metadata");
 visual = d3.select("#bar");
 nosub= d3.select("#no_subject");
-//1 -  Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-// Use sample_values as the values for the bar chart.
-// Use otu_ids as the labels for the bar chart.
-// Use otu_labels as the hovertext for the chart.
-// var datab = [{
-//     type: 'bar',
-//     x: [20, 14, 23, 82, 99, 27, 50, 59, 80, 100],
-//     y: ['OTU 1167', 'OTU 2859', 'OTU 482', 'OTU 2264', 'OTU 41', 'OTU 1189', 'OTU 352', 'OTU 189', 'OTU 2318', 'OTU 1977'],
-//     orientation: 'h',
-//     }];
-
-// Plotly.newPlot('bar1', datab, layout);
-
-
-// 2 - Create a bubble chart that displays each sample.
-// https://plotly.com/javascript/bubble-charts/
-// Use otu_ids for the x values.
-// Use sample_values for the y values.
-// Use sample_values for the marker size.
-// Use otu_ids for the marker colors.
-// Use otu_labels for the text values.
-// var trace1 = {
-//     x: [1, 2, 3, 4],
-//     y: [10, 11, 12, 13],
-//     mode: 'markers',
-//     marker: {
-//         size: [40, 60, 80, 100]
-//     }
-//     };
-    
-//     var data = [trace1];
-    
-//     var layout = {
-//     title: { text: "OTU ID", font: { size: 24 } },
-//     showlegend: false,
-//     height: 600,
-//     width: 600,
-//     font: { color: "rgb(66, 127, 207)", family: "Arial" }
-//     };
-    
-//     Plotly.newPlot('bubble', data, layout);
 
 
 var drop = d3.select('#selDataset');
@@ -58,118 +17,151 @@ d3.json("samples.json").then((data) => {
     names.forEach((ID) => {
     drop.append('option').text(ID).property('value', ID)
     console.log(ID)    
-
     }
-
-
     )
-    
-    // var ID2 = names[0]
-    // function1(ID2)
-    // function2(ID2)
+});
+
+function Refresh() {
+    // Let's populate the drop down
+
+suspect = d3.select("#selDataset").property("value");
+
+// lets log the suspect
+console.log("This is taking for ever " + suspect);
+console.log("\n");
+
+// Clear the html.  
+
+demoinfo.html("");
+visual.html("");
+nosub.html("");
+
+// time for json
+d3.json("samples.json").then(datag => {
+
+// and let's get the json
+samples = datag.samples;
+metadata = datag.metadata;
+
+//bring the drop down down
+
+subject_samples=samples.filter(sample => sample.id == suspect);
+subject_meta=metadata.filter(meta => meta.id == suspect);
+
+//make the subject part of the data
+
+
+console.log(subject_samples);
+console.log(subject_meta);
+console.log("\n");
+
+  // demographics box goes here
+
+Object.entries(subject_meta[0]).forEach(value => {
+    //p tag addition
+    panstuf = demoinfo.append("p");
+
+    // value addition
+
+    panstuf.text(value[0] + ": " + value[1]);
+});
+// time for ten samples
+
+otus = subject_samples[0].otu_ids.splice(0,10);
+otu_values = subject_samples[0].sample_values.splice(0,10).reverse();
+otu_labels = subject_samples[0].otu_labels.splice(0,10).reverse();
+OTU_ids = otus.map(otu_value => "OTU " + otu_value).reverse();
+//Log it
+
+
+console.log(otus);
+
+console.log("\n");
+// real bar graph data goes here
+
+  var traceb = {
+    x: otu_values,
+    y: OTU_ids,
+    text: otu_labels,
+    type:"bar",
+    orientation: "h",
+};
+
+bardb = [traceb];
+
+// variable for bar graph goes here
+
+var bbbar = {
+    title: "Belly Button Top OTU",
+    yaxis:{
+    tickmode:"linear",
+  },
+};
+
+// lets make the bar plot
+
+Plotly.newPlot("bar", bardb, bbbar);
+
+//Log it
+
+
+console.log(bardb);
+console.log(bbbar);
+console.log("\n");
+
+// the real bubble chart goes here
+
+var tracebub = {
+    x: otus,
+    y: otu_values,
+    mode: "markers",
+    marker: {
+        size: otu_values,
+        color: otus
+    },
+    text:  otu_labels
+};
+
+var bubbled = [tracebub];
+
+// layout for the bublle chart goes here
+
+var bubbletime = {
+    xaxis:{title: "OTU ID"},
+    height: 600,
+    width: 900
+};
+
+// bubble plot creation time
+
+Plotly.newPlot("bubble", bubbled, bubbletime);
+
+//Log it
+
+console.log("Here is the BubbleGraph was made");
+console.log(bardb);
+console.log(bbbar);
+console.log("\n");
 
 });
 
-// "id": 940, "ethnicity": "Caucasian", 
-// "gender": "F", "age": 24.0, "location": "Beaufort/NC", "bbtype": "I", "wfreq": 2.0
-// Create an array of each ID's numbers
-// var ethnicity = Object.values(data.ethnicity);
-// var gender = Object.values(data.gender);
-// var age = Object.values(data.age);
-// var location = Object.values(data.location);
-// var bbtype = Object.values(data.bbtype);
-// var wfreq = Object.values(ID.wfreq);
-// console.log(wfreq)
+}
 
-// // Create an array of music provider labels
-// var labels = Object.keys(data.ID);
+// this is how the webpage knows to update the webpage
 
-// // Display the default plot
-// function init() {
-// var data = [{
-// values: ID,
-// labels: labels,
-// type: "pie"
-// }];
+d3.select("#selDataset").on("change", Refresh)   
 
-// var layout = {
-// height: 600,
-// width: 800
-// };
 
-// Plotly.newPlot("pie", data, layout);
-// }
 
-// // On change to the DOM, call getData()
-// d3.selectAll("#selDataset").on("change", ID;
-
-// // // Function called by DOM changes
-// function getData() {
-//     var dropdownMenu = d3.select("#selDataset");
-// // // Assign the value of the dropdown menu option to a variable
-//     var dataset = dropdownMenu.property("value");
-// // // Initialize an empty array for the country's data
-//     var data = [];
-
-// if (dataset == 'us') {
-//     data = us;
-// }
-// else if (dataset == 'uk') {
-//     data = uk;
-// }
-// else if (dataset == 'canada') {
-//     data = canada;
-// }
-// // Call function to update the chart
-// updatePlotly(data);
-// }
-
-// // Update the restyled plot's values
-// function updatePlotly(newdata) {
-// Plotly.restyle("pie", "values", [newdata]);
-// }
-
-// init();
-// define optionChanged function here to catch the value from you will need two functions to bas the parameter throught those two functions.  
-// Display each key-value pair from the metadata JSON object somewhere on the page.
-
-// def optionChanged(IDSample){
-//     function1(IDSample)
-//     function2(IDSample)
-// }
 // python -m http.server
 
-
-// 1) Grab a reference to the dropdown select element using D3 select()
-// 2) Create two functions such as function1 for creating demograpgic data and function2 for building charts/plots
-// 3) Use the list of sample names to populate the select options (Create a dropdown menu list)
-// 	-> Read JSON data
-// 	-> Store 'names' key information from data in a variable
-// 	-> Loop through through names list
-// 	-> Use append method o insert 'option' tag
-// 	-> Use text() to insert dropdown text
-// 	-> Use property() to insert 'value'
-// 4) Use the first sample from the list to build the initial plots
-// 	-> call function1 and function2 while passing the first sample value from list
-// 5) Define function 'optionChanged' and catch the value as a parameter when dropdown value is seleceted
-// 	-> call function1 and function2 while passing the this catched parameter value
-// 6) In function1 (step 2 above)->
-// 	Read JSON data
-// 	-> This time, read metadata key from dataset
-// 		e.g: var metadata = data.metadata;
-// 	-> Define steps to read the dictionary data and display it using append() method and any html tag
-// 7) In function2 (step 2 above) ->
-// 	Read JSON data
-// 	-> This time, read metadata key from dataset
-// 		e.g: var samples = data.samples;
-// 	-> Define steps to create the plot/chart
 
 // var datag = [
 // {
 //     type: "indicator",
 //     mode: "gauge+number+delta",
 //     value: 6,
-//     title: { text: "Belly Button Washing Frequency", font: { size: 24 } },
+//     title: { text: "Non working Belly Button Washing Frequency", font: { size: 24 } },
 //     delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
 //     gauge: {
 //     axis: { range: [null, 9], tickwidth: 1, tickcolor: "rgb(66, 127, 207)" },
@@ -219,3 +211,45 @@ d3.json("samples.json").then((data) => {
 // // var bbtype = Object.values(data.bbtype);
 // // var wfreq = Object.values(ID.wfreq);
 // // console.log(wfreq)
+
+//1 -  Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+// Use sample_values as the values for the bar chart.
+// Use otu_ids as the labels for the bar chart.
+// Use otu_labels as the hovertext for the chart.
+// var datab = [{
+//     type: 'bar',
+//     x: [20, 14, 23, 82, 99, 27, 50, 59, 80, 100],
+//     y: ['OTU 1167', 'OTU 2859', 'OTU 482', 'OTU 2264', 'OTU 41', 'OTU 1189', 'OTU 352', 'OTU 189', 'OTU 2318', 'OTU 1977'],
+//     orientation: 'h',
+//     }];
+
+// Plotly.newPlot('bar1', datab, layout);
+
+
+// 2 - Create a bubble chart that displays each sample.
+// https://plotly.com/javascript/bubble-charts/
+// Use otu_ids for the x values.
+// Use sample_values for the y values.
+// Use sample_values for the marker size.
+// Use otu_ids for the marker colors.
+// Use otu_labels for the text values.
+// var trace1 = {
+//     x: [1, 2, 3, 4],
+//     y: [10, 11, 12, 13],
+//     mode: 'markers',
+//     marker: {
+//         size: [40, 60, 80, 100]
+//     }
+//     };
+    
+//     var data = [trace1];
+    
+//     var layout = {
+//     title: { text: "OTU ID", font: { size: 24 } },
+//     showlegend: false,
+//     height: 600,
+//     width: 600,
+//     font: { color: "rgb(66, 127, 207)", family: "Arial" }
+//     };
+    
+//     Plotly.newPlot('bubble', data, layout);
