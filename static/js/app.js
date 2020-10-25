@@ -1,3 +1,8 @@
+// maping location for HTML
+thedrop = d3.select("#selDataset");
+demoinfo = d3.select("#sample-metadata");
+visual = d3.select("#bar");
+nosub= d3.select("#no_subject");
 //1 -  Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 // Use sample_values as the values for the bar chart.
 // Use otu_ids as the labels for the bar chart.
@@ -212,5 +217,5 @@ Plotly.newPlot('gauge', datag, layout);
 // var age = Object.values(data.age);
 // var location = Object.values(data.location);
 // var bbtype = Object.values(data.bbtype);
-var wfreq = Object.values(ID.wfreq);
-console.log(wfreq)
+// var wfreq = Object.values(ID.wfreq);
+// console.log(wfreq)
