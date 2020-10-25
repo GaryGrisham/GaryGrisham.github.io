@@ -201,3 +201,16 @@ font: { color: "rgb(66, 127, 207)", family: "Arial" }
 };
 
 Plotly.newPlot('gauge', datag, layout);
+
+
+
+// "id": 940, "ethnicity": "Caucasian", 
+// "gender": "F", "age": 24.0, "location": "Beaufort/NC", "bbtype": "I", "wfreq": 2.0
+// Create an array of each ID's numbers
+// var ethnicity = Object.values(data.ethnicity);
+// var gender = Object.values(data.gender);
+// var age = Object.values(data.age);
+// var location = Object.values(data.location);
+// var bbtype = Object.values(data.bbtype);
+var wfreq = Object.values(ID.wfreq);
+console.log(wfreq)
